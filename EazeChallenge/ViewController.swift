@@ -12,6 +12,8 @@ import SnapKit
 class ViewController: UIViewController {
     lazy var contentArea = UIView()
     lazy var searchBox = UITextField()
+    lazy var tableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let constraint = ConstraintSheet()
@@ -34,6 +36,13 @@ class ViewController: UIViewController {
         superview?.addSubview(contentArea)
         contentArea.backgroundColor = UIColor.white
         constraint.setContentArea(contentArea: contentArea,superview: superview!)
+        
+        /*-------------------------------
+         Create the Table View for search
+         results
+         ---------------------------------*/
+        contentArea.addSubview(tableView)
+        constraint.setTableArea(tableView: tableView,superview: contentArea)
         
     }
 

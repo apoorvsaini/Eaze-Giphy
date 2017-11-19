@@ -25,7 +25,18 @@ class ConstraintSheet: NSObject {
             make.bottom.equalTo((superview.snp.bottom))
             make.right.equalTo((superview.snp.right))
             make.center.equalTo(superview)
+            make.width.equalTo((superview.snp.width))
             make.topMargin.equalTo(70)
+        }
+    }
+    
+    func setTableArea(tableView : UITableView, superview: UIView) -> Void {
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo((superview.snp.bottom))
+            make.right.equalTo((superview.snp.right))
+            make.width.equalTo((superview.snp.width))
+            make.topMargin.equalTo(0)
+            make.center.equalTo(superview)
         }
     }
 }
