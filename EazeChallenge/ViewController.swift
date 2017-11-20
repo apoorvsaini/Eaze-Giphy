@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var stringKeys: NSDictionary?
     var giphy = GiphyAPI()
     let constraint = ConstraintSheet()
-    private let myArray: NSArray = ["First","Second","Third"]
+    var myArray: NSArray = NSArray()
     
     /*------------------------------------------------------------
      Initial and default View handling
@@ -33,6 +33,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createSearchBox(superview: superview!)
         createViewHolder(superview: superview!)
         createTableView(contentArea: contentArea)
+        
+        // Get current trending GIFs
+        giphy.getTrending()
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,7 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     /*------------------------------------------------------------
-     UITableView and UITableViewCell delegate methods
+     UITableView delegate methods
     ------------------------------------------------------------*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Index: \(indexPath.row)")

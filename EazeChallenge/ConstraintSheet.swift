@@ -11,7 +11,7 @@ import SnapKit
 import UIKit
 
 class ConstraintSheet: NSObject {
-    func setSearchBox(searchBox : UITextField, superview: UIView) -> Void {
+    func setSearchBox(searchBox: UITextField, superview: UIView) -> Void {
         searchBox.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(superview)
             make.height.equalTo(50)
@@ -20,7 +20,7 @@ class ConstraintSheet: NSObject {
         }
     }
     
-    func setContentArea(contentArea : UIView, superview: UIView) -> Void {
+    func setContentArea(contentArea: UIView, superview: UIView) -> Void {
         contentArea.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo((superview.snp.bottom))
             make.right.equalTo((superview.snp.right))
@@ -29,7 +29,7 @@ class ConstraintSheet: NSObject {
         }
     }
     
-    func setTableArea(tableView : UITableView, superview: UIView) -> Void {
+    func setTableArea(tableView: UITableView, superview: UIView) -> Void {
         tableView.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo((superview.snp.bottom))
             make.right.equalTo((superview.snp.right))
