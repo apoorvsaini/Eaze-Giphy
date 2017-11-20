@@ -17,6 +17,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let constraint = ConstraintSheet()
     let screenSize: CGRect = UIScreen.main.bounds
     lazy var contentArea = UIView()
+    lazy var infoBox = UIView()
+    lazy var infoText = UILabel()
     lazy var searchBox = UITextField()
     lazy var tableView = UITableView()
     var stringKeys: NSDictionary?
@@ -38,12 +40,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createSearchBox(superview: superview!)
         createViewHolder(superview: superview!)
         createTableView(contentArea: contentArea)
+        createInfoBox(superview: superview!)
         
         // Show trending GIFs on start up
+        setInfoText(text: (stringKeys!["SEARCHING"] as? String)!)
         giphy.getTrending {
             gif in self.gifArray = gif
             DispatchQueue.main.async{
+                self.setInfoText(text: (self.stringKeys!["TRENDING"] as? String)!)
                 self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: true)
             }
         }
     }
@@ -62,8 +68,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBox.textAlignment = NSTextAlignment.center
         searchBox.backgroundColor = UIColor.black
         searchBox.textColor = UIColor.white
+        searchBox.returnKeyType = UIReturnKeyType.search
         searchBox.attributedPlaceholder = NSAttributedString(string: (stringKeys!["SEARCH_PROMPT"] as? String)!,attributes:[NSAttributedStringKey.foregroundColor: UIColor.white])
         constraint.setSearchBox(searchBox: searchBox, superview: superview)
+    }
+    
+    func createInfoBox(superview: UIView) {
+        superview.addSubview(infoBox)
+        infoBox.backgroundColor = UIColor.yellow
+        infoBox.layer.cornerRadius = 15
+        constraint.setInfoBox(infoBox: infoBox, superview: superview)
+        //setInfoText(text: (stringKeys!["TRENDING"] as? String)!)
+    }
+    
+    func setInfoText(text: String) {
+        if text.isEmpty {
+            infoBox.isHidden = true
+        }
+        else {
+            infoBox.isHidden = false
+            infoText.backgroundColor = UIColor.clear
+            infoText.textColor = UIColor.black
+            infoText.text = text
+            infoText.font = infoText.font.withSize(12)
+            infoText.textAlignment = .center
+            infoBox.addSubview(infoText)
+            constraint.setInfoText(infoText: infoText, superview: infoBox)
+        }
+        
     }
 
     func createViewHolder(superview: UIView) {
@@ -94,12 +126,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func startSearching () {
         if !searchBox.text!.isEmpty {
+            setInfoText(text: (stringKeys!["SEARCHING"] as? String)!)
             giphy.searchGif(query: searchBox.text!, completionHandler: {
                 gif in self.gifArray = gif
                 DispatchQueue.main.async{
                     if self.gifArray.count > 0 {
-                        self.tableView.reloadData()
+                        // Hide the infoBox
+                        self.setInfoText(text: "")
                     }
+                    else {
+                        self.setInfoText(text: (self.stringKeys!["NOTHING_FOUND"] as? String)!)
+                    }
+                    
+                    // Reload the data
+                    self.tableView.reloadData()
+                    self.tableView.setContentOffset(CGPoint.zero, animated: true)
                 }
             })
         }
@@ -110,6 +151,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     ------------------------------------------------------------*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Index: \(indexPath.row)")
+        
+        // Share the GIF
+        var shareText = "Check out this GIF "
+        shareText.append(gifArray[indexPath.row] as! String)
+        let vc = UIActivityViewController(activityItems: [shareText], applicationActivities: [])
+        present(vc, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

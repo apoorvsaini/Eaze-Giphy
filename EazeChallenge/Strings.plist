@@ -8,5 +8,11 @@
 	<string>TYPE TO SEARCH A GIF</string>
 	<key>CELL_IDENTIFIER</key>
 	<string>cellIdentifier</string>
+	<key>TRENDING</key>
+	<string>Trending</string>
+	<key>NOTHING_FOUND</key>
+	<string>Sorry, nothing found!</string>
+	<key>SEARCHING</key>
+	<string>Searching...</string>
 </dict>
 </plist>

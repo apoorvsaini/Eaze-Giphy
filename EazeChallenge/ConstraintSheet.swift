@@ -21,6 +21,24 @@ class ConstraintSheet: NSObject {
         }
     }
     
+    func setInfoBox(infoBox: UIView, superview: UIView) -> Void {
+        infoBox.snp.makeConstraints { (make) -> Void in
+            make.width.greaterThanOrEqualTo(200)
+            make.height.equalTo(30)
+            make.top.equalTo(superview.snp.top).offset(100)
+            make.centerX.equalTo(superview.snp.centerX)
+        }
+    }
+    
+    func setInfoText(infoText: UILabel, superview: UIView) -> Void {
+        infoText.snp.makeConstraints { (make) -> Void in
+            make.width.greaterThanOrEqualTo(200)
+            make.height.equalTo(30)
+            make.top.equalTo(superview.snp.top).offset(0)
+            make.centerX.equalTo(superview.snp.centerX)
+        }
+    }
+    
     func setContentArea(contentArea: UIView, superview: UIView) -> Void {
         contentArea.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo((superview.snp.bottom)).offset(0)
