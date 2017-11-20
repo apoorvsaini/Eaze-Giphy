@@ -12,7 +12,7 @@ import FLAnimatedImage
 import PINRemoteImage
 import SDWebImage
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     let constraint = ConstraintSheet()
     let screenSize: CGRect = UIScreen.main.bounds
@@ -61,6 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func createSearchBox(superview: UIView) {
         superview.addSubview(searchBox)
         searchBox.becomeFirstResponder()
+        searchBox.delegate = self
         searchBox.textAlignment = NSTextAlignment.center
         searchBox.backgroundColor = UIColor.black
         searchBox.textColor = UIColor.white
@@ -86,6 +87,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func searchBoxTextChanged(_ textField: UITextField) {
         print(textField.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        startSearching()
+        return false
+    }
+    
+    func startSearching () {
+        giphy.searchGif(query: searchBox.text!, completionHandler: {
+            gif in self.gifArray = gif
+            DispatchQueue.main.async{
+                if self.gifArray.count > 0 {
+                    self.tableView.reloadData()
+                }
+            }
+        })
     }
     
     /*------------------------------------------------------------

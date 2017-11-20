@@ -46,7 +46,7 @@ class GiphyAPI: NSObject {
      ------------------------------------------------------------*/
     func searchGif(query: String, completionHandler: @escaping (_ : NSMutableArray) -> ()) {
         let searchResult = NSMutableArray()
-        _ = giphyClient.search("query") { (response, error) in
+        _ = giphyClient.search(query) { (response, error) in
             if (error as NSError?) != nil {
                 print(error ?? "")
             }
