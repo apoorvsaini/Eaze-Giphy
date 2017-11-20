@@ -11,13 +11,34 @@ import FLAnimatedImage
 
 class TableViewCell: UITableViewCell {
     
-    let gifImageView = FLAnimatedImageView()
     let constraint = ConstraintSheet()
+    let padding: CGFloat = 5
+    let screenSize: CGRect = UIScreen.main.bounds
+    var backGroundColor = UIColor()
+    var gifImageView = FLAnimatedImageView()
+    var backGround = UIView()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backGroundColor = UIColor.black
+        selectionStyle = .none
+        
+        backGround = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 300))
+        backGround.backgroundColor = backGroundColor
+        contentView.addSubview(backGround)
+        
+        gifImageView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 300)
+        contentView.addSubview(gifImageView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        contentView.addSubview(gifImageView)
         
     }
 

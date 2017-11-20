@@ -14,14 +14,14 @@ import SDWebImage
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let constraint = ConstraintSheet()
+    let screenSize: CGRect = UIScreen.main.bounds
     lazy var contentArea = UIView()
     lazy var searchBox = UITextField()
     lazy var tableView = UITableView()
     var stringKeys: NSDictionary?
     var giphy = GiphyAPI()
-    let constraint = ConstraintSheet()
     var gifArray: NSMutableArray = NSMutableArray()
-    let screenSize: CGRect = UIScreen.main.bounds
     
     /*------------------------------------------------------------
      Initial and default View handling
@@ -38,6 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createSearchBox(superview: superview!)
         createViewHolder(superview: superview!)
         createTableView(contentArea: contentArea)
+        searchBox.addTarget(self, action: #selector(searchBoxTextChanged(_:)), for: .editingChanged)
         
         // Show trending GIFs on start up
         giphy.getTrending {
@@ -46,6 +47,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tableView.reloadData()
             }
         }
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,10 +80,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         constraint.setTableArea(tableView: tableView,superview: contentArea)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = 300
         self.tableView.register(TableViewCell.self, forCellReuseIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!)
-        tableView.rowHeight = screenSize.height - 60
     }
     
+    @objc func searchBoxTextChanged(_ textField: UITextField) {
+        print(textField.text!)
+    }
     
     /*------------------------------------------------------------
      UITableView delegate methods
@@ -95,13 +101,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!, for: indexPath) as! TableViewCell
-        let gifImageView = FLAnimatedImageView()
-        gifImageView.sd_setImage(with: URL(string: gifArray[indexPath.row] as! String))
-        gifImageView.sd_setShowActivityIndicatorView(true)
-        cell.addSubview(gifImageView)
-        gifImageView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height - 60)
+        print(tableView.indexPathsForVisibleRows!)
+        print(indexPath)
+        cell.gifImageView.sd_setImage(with: URL(string: gifArray[indexPath.row] as! String))
+        cell.gifImageView.sd_setShowActivityIndicatorView(true)
         print(gifArray[indexPath.row] as! String)
-        print(gifImageView.frame.width)
+        if tableView.indexPathsForVisibleRows!.contains(indexPath) {
+            cell.gifImageView.startAnimating()
+        }
+        else {
+            cell.gifImageView.stopAnimating()
+        }
         return cell
     }
 }
