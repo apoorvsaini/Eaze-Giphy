@@ -14,44 +14,63 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     lazy var searchBox = UITextField()
     lazy var tableView = UITableView()
     var stringKeys: NSDictionary?
+    var giphy = GiphyAPI()
+    let constraint = ConstraintSheet()
     private let myArray: NSArray = ["First","Second","Third"]
     
+    /*------------------------------------------------------------
+     Initial and default View handling
+     ------------------------------------------------------------*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        let constraint = ConstraintSheet()
         let superview = self.view
         superview?.backgroundColor = UIColor.black
         if let path = Bundle.main.path(forResource: "Strings", ofType: "plist") {
             stringKeys = NSDictionary(contentsOfFile: path)
         }
-        /*---------------------------------------------------------
-         Create the search text field
-        ---------------------------------------------------------*/
-        superview?.addSubview(searchBox)
+        
+        // Setup the UI components
+        createSearchBox(superview: superview!)
+        createViewHolder(superview: superview!)
+        createTableView(contentArea: contentArea)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    /*------------------------------------------------------------
+     Custom UI component functions
+     ------------------------------------------------------------*/
+    func createSearchBox(superview: UIView) {
+        superview.addSubview(searchBox)
+        searchBox.becomeFirstResponder()
         searchBox.textAlignment = NSTextAlignment.center
         searchBox.backgroundColor = UIColor.black
         searchBox.textColor = UIColor.white
-        searchBox.attributedPlaceholder = NSAttributedString(string: (stringKeys!["search_prompt"] as? String)!,attributes:[NSAttributedStringKey.foregroundColor: UIColor.white])
-        constraint.setSearchBox(searchBox: searchBox, superview: superview!)
-        
-        /*---------------------------------------------------------
-         Create the view holder
-        ----------------------------------------------------------*/
-        superview?.addSubview(contentArea)
+        searchBox.attributedPlaceholder = NSAttributedString(string: (stringKeys!["SEARCH_PROMPT"] as? String)!,attributes:[NSAttributedStringKey.foregroundColor: UIColor.white])
+        constraint.setSearchBox(searchBox: searchBox, superview: superview)
+    }
+
+    func createViewHolder(superview: UIView) {
+        superview.addSubview(contentArea)
         contentArea.backgroundColor = UIColor.white
-        constraint.setContentArea(contentArea: contentArea,superview: superview!)
-        
-        /*---------------------------------------------------------
-         Create the Table View for search results
-        ----------------------------------------------------------*/
+        constraint.setContentArea(contentArea: contentArea,superview: superview)
+    }
+    
+    func createTableView(contentArea: UIView) {
         contentArea.addSubview(tableView)
         tableView.separatorColor = UIColor.clear
         constraint.setTableArea(tableView: tableView,superview: contentArea)
         tableView.dataSource = self
         tableView.delegate = self
-        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: (stringKeys!["cell_identifier"] as? String)!)
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!)
     }
     
+    
+    /*------------------------------------------------------------
+     UITableView and UITableViewCell delegate methods
+    ------------------------------------------------------------*/
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Index: \(indexPath.row)")
     }
@@ -61,17 +80,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["cell_identifier"] as? String)!, for: indexPath) as! TableViewCell
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!, for: indexPath) as! TableViewCell
         cell.textLabel!.text = "\(myArray[indexPath.row])"
         return cell
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
