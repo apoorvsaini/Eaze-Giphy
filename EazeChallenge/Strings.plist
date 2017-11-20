@@ -6,5 +6,7 @@
 	<string>rDUhVfLAT1PPztPkpCaFhS9Dnds1HQZC</string>
 	<key>search_prompt</key>
 	<string>SEARCH A GIF</string>
+	<key>cell_identifier</key>
+	<string>cellIdentifier</string>
 </dict>
 </plist>

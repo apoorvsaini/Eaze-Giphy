@@ -24,7 +24,6 @@ class ConstraintSheet: NSObject {
         contentArea.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo((superview.snp.bottom))
             make.right.equalTo((superview.snp.right))
-            make.center.equalTo(superview)
             make.width.equalTo((superview.snp.width))
             make.topMargin.equalTo(70)
         }
@@ -36,7 +35,6 @@ class ConstraintSheet: NSObject {
             make.right.equalTo((superview.snp.right))
             make.width.equalTo((superview.snp.width))
             make.topMargin.equalTo(0)
-            make.center.equalTo(superview)
         }
     }
 }

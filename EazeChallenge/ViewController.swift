@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     lazy var contentArea = UIView()
     lazy var searchBox = UITextField()
     lazy var tableView = UITableView()
@@ -47,13 +47,24 @@ class ViewController: UIViewController, UITableViewDelegate {
         contentArea.addSubview(tableView)
         tableView.separatorColor = UIColor.clear
         constraint.setTableArea(tableView: tableView,superview: contentArea)
-        
-        /*---------------------------------------------------------
-         Create the Table Cell View for search results
-        ----------------------------------------------------------*/
-        
-        
-        
+        tableView.dataSource = self
+        tableView.delegate = self
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: (stringKeys!["cell_identifier"] as? String)!)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Index: \(indexPath.row)")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["cell_identifier"] as? String)!, for: indexPath) as! TableViewCell
+
+        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        return cell
     }
 
     override func didReceiveMemoryWarning() {
