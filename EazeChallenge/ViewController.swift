@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var stringKeys: NSDictionary?
     var giphy = GiphyAPI()
     let constraint = ConstraintSheet()
-    var myArray: NSArray = NSArray()
+    var gifArray: NSMutableArray = NSMutableArray()
     
     /*------------------------------------------------------------
      Initial and default View handling
@@ -35,7 +35,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createTableView(contentArea: contentArea)
         
         // Get current trending GIFs
-        giphy.getTrending()
+        giphy.getTrending {
+            gif in self.gifArray = gif
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,12 +84,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count
+        return gifArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!, for: indexPath) as! TableViewCell
-        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        cell.textLabel!.text = "\(gifArray[indexPath.row])"
         return cell
     }
 }

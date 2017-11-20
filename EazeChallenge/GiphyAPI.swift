@@ -25,22 +25,19 @@ class GiphyAPI: NSObject {
     /*------------------------------------------------------------
      Get trending GIFs from GIPHY
      ------------------------------------------------------------*/
-    func getTrending() -> Void {
+    func getTrending(completionHandler: @escaping (_ : NSMutableArray) -> ()) {
+        let trendingResult = NSMutableArray()
         _ = giphyClient.trending() { (response, error) in
             if (error as NSError?) != nil {
                 print(error ?? "")
             }
-            
             if let response = response, let data = response.data {
-                print(response.meta)
                 for result in data {
-                    print(result.images!.downsizedLarge!.gifUrl! )
+                    trendingResult.add(result.images!.downsizedLarge!.gifUrl!)
                 }
-            } else {
-                print("No Results Found")
+                completionHandler(trendingResult)
             }
         }
-
     }
     
     /*------------------------------------------------------------
