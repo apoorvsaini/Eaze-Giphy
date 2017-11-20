@@ -10,5 +10,4 @@
 * Amidst all my academic assignments I tried to find as much time as possible to work on it. Instead of taking 4-5 days, I have done whatever I could in 10-12 hours (with dinner and sleep breaks, of course)
 
 ### To Do ###
-* Show Share Card on tapping the GIF
 * Adding a few more UI improvements and components
