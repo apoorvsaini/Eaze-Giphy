@@ -10,6 +10,7 @@ import UIKit
 import GiphyCoreSDK
 
 class GiphyAPI: NSObject {
+    
     var stringKeys: NSDictionary?
     var apiKey = String()
     var giphyClient = GPHClient(apiKey: "")
@@ -33,7 +34,7 @@ class GiphyAPI: NSObject {
             }
             if let response = response, let data = response.data {
                 for result in data {
-                    trendingResult.add(result.images!.downsizedLarge!.gifUrl!)
+                    trendingResult.add(result.images!.fixedWidth!.gifUrl!)
                 }
                 completionHandler(trendingResult)
             }
@@ -43,19 +44,17 @@ class GiphyAPI: NSObject {
     /*------------------------------------------------------------
      Search GIFs from GIPHY
      ------------------------------------------------------------*/
-    func searchGif(query: String) -> Void {
-        _ = giphyClient.search(query) { (response, error) in
+    func searchGif(query: String, completionHandler: @escaping (_ : NSMutableArray) -> ()) {
+        let searchResult = NSMutableArray()
+        _ = giphyClient.search("query") { (response, error) in
             if (error as NSError?) != nil {
                 print(error ?? "")
             }
-            
             if let response = response, let data = response.data {
-                print(response.meta)
                 for result in data {
-                    print(result.images!.downsizedLarge!.gifUrl! )
+                    searchResult.add(result.images!.fixedWidth!.gifUrl!)
                 }
-            } else {
-                print("No Results Found")
+                completionHandler(searchResult)
             }
         }
     }

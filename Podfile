@@ -6,9 +6,12 @@ target 'EazeChallenge' do
   use_frameworks!
   pod 'SnapKit', '~> 4.0.0'
   pod 'GiphyCoreSDK'
-
-  # Pods for EazeChallenge
-
+  pod 'FLAnimatedImage', '~> 1.0'
+  pod 'PINRemoteImage', '3.0.0-beta.13'
+  pod 'PINRemoteImage/WebP'
+  pod 'SDWebImage', '~> 4.0'
+  pod 'SDWebImage/GIF'
+  
   target 'EazeChallengeTests' do
     inherit! :search_paths
     # Pods for testing
