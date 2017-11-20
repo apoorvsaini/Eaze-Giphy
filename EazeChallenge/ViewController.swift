@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         let superview = self.view
-        superview?.backgroundColor = UIColor.black
+        superview?.backgroundColor = UIColor.yellow
         if let path = Bundle.main.path(forResource: "Strings", ofType: "plist") {
             stringKeys = NSDictionary(contentsOfFile: path)
         }
@@ -66,10 +66,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBox.becomeFirstResponder()
         searchBox.delegate = self
         searchBox.textAlignment = NSTextAlignment.center
-        searchBox.backgroundColor = UIColor.black
-        searchBox.textColor = UIColor.white
-        searchBox.returnKeyType = UIReturnKeyType.search
-        searchBox.attributedPlaceholder = NSAttributedString(string: (stringKeys!["SEARCH_PROMPT"] as? String)!,attributes:[NSAttributedStringKey.foregroundColor: UIColor.white])
+        searchBox.backgroundColor = UIColor.yellow
+        searchBox.textColor = UIColor.black
+        searchBox.returnKeyType = .search
+        searchBox.clearButtonMode = .whileEditing
+        searchBox.attributedPlaceholder = NSAttributedString(string: (stringKeys!["SEARCH_PROMPT"] as? String)!,attributes:[NSAttributedStringKey.foregroundColor: UIColor.black])
         constraint.setSearchBox(searchBox: searchBox, superview: superview)
     }
     
