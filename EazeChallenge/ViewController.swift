@@ -38,7 +38,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createSearchBox(superview: superview!)
         createViewHolder(superview: superview!)
         createTableView(contentArea: contentArea)
-        searchBox.addTarget(self, action: #selector(searchBoxTextChanged(_:)), for: .editingChanged)
         
         // Show trending GIFs on start up
         giphy.getTrending {
@@ -47,8 +46,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tableView.reloadData()
             }
         }
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,14 +93,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func startSearching () {
-        giphy.searchGif(query: searchBox.text!, completionHandler: {
-            gif in self.gifArray = gif
-            DispatchQueue.main.async{
-                if self.gifArray.count > 0 {
-                    self.tableView.reloadData()
+        if !searchBox.text!.isEmpty {
+            giphy.searchGif(query: searchBox.text!, completionHandler: {
+                gif in self.gifArray = gif
+                DispatchQueue.main.async{
+                    if self.gifArray.count > 0 {
+                        self.tableView.reloadData()
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     
     /*------------------------------------------------------------
@@ -119,8 +118,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: (stringKeys!["CELL_IDENTIFIER"] as? String)!, for: indexPath) as! TableViewCell
-        print(tableView.indexPathsForVisibleRows!)
-        print(indexPath)
         cell.gifImageView.sd_setImage(with: URL(string: gifArray[indexPath.row] as! String))
         cell.gifImageView.sd_setShowActivityIndicatorView(true)
         print(gifArray[indexPath.row] as! String)
