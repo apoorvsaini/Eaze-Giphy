@@ -17,6 +17,7 @@
 		D10C44431FC0DAA200FBE14D /* EazeChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C44421FC0DAA200FBE14D /* EazeChallengeTests.swift */; };
 		D10C444E1FC0DAA200FBE14D /* EazeChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C444D1FC0DAA200FBE14D /* EazeChallengeUITests.swift */; };
 		D10C445C1FC15B9D00FBE14D /* ConstraintSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10C445B1FC15B9D00FBE14D /* ConstraintSheet.swift */; };
+		D10C44601FC23CE600FBE14D /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D10C445F1FC23CE600FBE14D /* Strings.plist */; };
 		E91408C24C180963F20128AE /* Pods_EazeChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3021F34A0CC101ED4BB1F96 /* Pods_EazeChallenge.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		D10C444D1FC0DAA200FBE14D /* EazeChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EazeChallengeUITests.swift; sourceTree = "<group>"; };
 		D10C444F1FC0DAA200FBE14D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D10C445B1FC15B9D00FBE14D /* ConstraintSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintSheet.swift; sourceTree = "<group>"; };
+		D10C445F1FC23CE600FBE14D /* Strings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		F3021F34A0CC101ED4BB1F96 /* Pods_EazeChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EazeChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74CA4EF1BCABE0297620F0F /* Pods-EazeChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EazeChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-EazeChallenge/Pods-EazeChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		FD3EB9072EB703C024D0AB8A /* Pods-EazeChallengeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EazeChallengeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EazeChallengeUITests/Pods-EazeChallengeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				D10C44361FC0DAA200FBE14D /* LaunchScreen.storyboard */,
 				D10C44391FC0DAA200FBE14D /* Info.plist */,
 				D10C445B1FC15B9D00FBE14D /* ConstraintSheet.swift */,
+				D10C445F1FC23CE600FBE14D /* Strings.plist */,
 			);
 			path = EazeChallenge;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D10C44381FC0DAA200FBE14D /* LaunchScreen.storyboard in Resources */,
+				D10C44601FC23CE600FBE14D /* Strings.plist in Resources */,
 				D10C44351FC0DAA200FBE14D /* Assets.xcassets in Resources */,
 				D10C44331FC0DAA200FBE14D /* Main.storyboard in Resources */,
 			);
